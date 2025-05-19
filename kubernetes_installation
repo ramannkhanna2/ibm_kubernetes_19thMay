@@ -65,3 +65,19 @@ networking:
 
 kubeadm init --config=config.yaml >> cluster_initialized.txt
 
+
+
+
+3rd and 4th step on master :
+3. cat cluster_initialized.txt     # run below commands 
+
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+4. install the calico plugin on master node
+
+kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
+
