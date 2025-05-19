@@ -81,3 +81,11 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
 
+
+5. join the worker node using --cri-socket unix:///var/run/cri-dockerd.sock
+
+kubeadm join 172.31.3.203:6443 --token 7gy0n6.gycf0eed7x3lihdj \
+        --discovery-token-ca-cert-hash sha256:6dc79151d4cd2c5e1e05e912f7935cf4cae1df149a2f3a74a62d84ee8bbe3cbf \
+        --cri-socket unix:///var/run/cri-dockerd.sock
+
+
