@@ -41,3 +41,27 @@ sudo systemctl enable --now cri-docker.socket
 sudo systemctl enable cri-docker
 sudo systemctl start cri-docker
 sudo systemctl status cri-docker
+
+
+
+
+2. create a config file on the master machine and mention the master node private ip address (advertiseAddress)
+
+vi config.yaml
+
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 172.31.3.203
+  bindPort: 6443
+nodeRegistration:
+  criSocket: unix:///var/run/cri-dockerd.sock
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+networking:
+  podSubnet: 192.168.0.0/16
+
+
+kubeadm init --config=config.yaml >> cluster_initialized.txt
+
